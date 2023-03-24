@@ -23,13 +23,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install gtest manually
-      run: sudo apt-get install libgtest-dev 
-      && cd /usr/src/gtest 
-      && sudo cmake CMakeLists.txt 
-      && sudo make 
-      && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a 
-      && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
     - uses: actions/checkout@v1
     - name: Create build folder inside tests folder
       run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests
@@ -47,6 +40,30 @@ jobs:
 Make sure to replace the project name within paths: `githubActionsGoogleTest`.   
 So the `cd` command for creating build foler should look like this: `cd /home/runner/work/YOUR_PROJECT_NAME/YOUR_PROJECT_NAME/tests`
 
+The install of of GoogleTest framework is done through `CMakeLists.txt` inside tests folder:
+```cmake
+# Include googleTests from github
+include(FetchContent)
+set (CMAKE_CXX_STANDARD 17)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.12.1
+)
+FetchContent_MakeAvailable(googletest)
+add_library(GTest::GTest INTERFACE IMPORTED)
+target_link_libraries(GTest::GTest INTERFACE gtest_main)
+
+# Create executable
+add_executable(test_module tests.cc)
+
+# Link googleTest library
+target_link_libraries(test_module
+ PRIVATE
+  GTest::GTest
+  )
+```
+The whole file is avaiable in `tests/CMakeLists.txt`. When it is being build in job Make tests, the GoogleTest framework is being downloaded form github and installed.
 ## Results
 Sample results from run within VSCode:
 <h1 align="center">
