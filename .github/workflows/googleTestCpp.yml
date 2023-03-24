@@ -22,6 +22,6 @@ jobs:
     - name: ls2
       run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests && ls
     - name: ls3
-      run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests/build && ls
+      run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/build && ls
     - name: Run Test
       run: /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests/build/test_module
