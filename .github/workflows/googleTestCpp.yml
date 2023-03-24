@@ -20,4 +20,4 @@ jobs:
     - name: ls
       run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest && ls
     - name: Run Test
-      run: /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/build/test/test_module
+      run: /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests/build/test_module
