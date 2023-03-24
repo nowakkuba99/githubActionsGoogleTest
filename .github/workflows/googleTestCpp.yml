@@ -13,15 +13,9 @@ jobs:
     - name: Install gtest manually
       run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
     - uses: actions/checkout@v1
-    - name: configure
+    - name: Create build folder inside tests folder
       run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Werror" ..
-    - name: make
+    - name: Make tests with CMakeLists
       run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests && cd build && make
-    - name: ls
-      run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest && ls
-    - name: ls2
-      run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests && ls
-    - name: ls3
-      run: cd /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests/build && ls
-    - name: Run Test
+    - name: Run Tests
       run: /home/runner/work/githubActionsGoogleTest/githubActionsGoogleTest/tests/build/test_module
